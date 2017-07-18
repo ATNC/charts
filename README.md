@@ -14,3 +14,6 @@ python manage.py load_data
 ```
 python runserver
 ```
+```
+http://localhost:8000/
+```
