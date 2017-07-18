@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<select onchange="window.location.href=this.options[this.selectedIndex].value">
+    {% for group in groups %}
+        <option value="{% url 'charts' %}?group={{ group.id }}" >{{ group.name }}</option>
+    {% endfor %}
+</select>
+
+
+
+{% load googlecharts %}
+<div id="out"></div>
+{% googlecharts %}
+    {% data values "out_data" %}
+        {% col "string" "Name" %}"{{ val }}"{% endcol %}
+        {% col "number" "Values" %}{{ val }}{% endcol %}
+    {% enddata %}
+    {% options "out_options" %}
+        kind: "ColumnChart",
+        options: {
+            width: 800,
+            height: 400
+        }
+    {% endoptions %}
+    {% graph "out" "out_data" "out_options" %}
+{% endgooglecharts %}
+
+
+
+</body>
+</html>
